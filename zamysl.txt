@@ -1,0 +1,72 @@
+Gra: Polowanie na Skarby
+Zasady:
+
+    Plansza:
+        Gra toczy się na prostokątnej siatce, np. 5x5.
+        Każda komórka może zawierać:
+            Skarb (punkt nagrody),
+            Pułapkę (kara punktowa),
+            Puste pole (neutralne).
+
+    Gracze:
+        Dwóch graczy startuje w losowych pozycjach na planszy.
+        Celem jest zdobycie jak największej liczby punktów przez odnalezienie skarbów i unikanie pułapek.
+
+    Rozgrywka:
+        Gra trwa przez określoną liczbę tur, np. 20.
+        W każdej turze gracz może:
+            Poruszyć się w jednym z 4 kierunków (góra, dół, lewo, prawo).
+            Zostać na swoim miejscu.
+        Po wykonaniu ruchu przez obu graczy:
+            Jeśli gracz znajdzie skarb, zdobywa punkty, a skarb znika.
+            Jeśli gracz wpadnie w pułapkę, traci punkty.
+        Skarby i pułapki mogą być regenerowane losowo w kolejnych turach.
+
+    Nagrody i kary:
+        Znalezienie skarbu: +10+10 punktów.
+        Wpadnięcie w pułapkę: −5−5 punktów.
+
+    Warunek końca gry:
+        Gra kończy się po określonej liczbie tur.
+        Wygrywa gracz z większą liczbą punktów.
+
+Dlaczego ta gra?
+
+    Prosta mechanika:
+        Ruchy są ograniczone do kilku możliwych akcji (4 kierunki + brak ruchu).
+        Plansza ma ograniczoną liczbę pól, co zmniejsza liczbę stanów.
+    Dynamiczność:
+        Regeneracja skarbów i pułapek wymaga planowania i elastyczności.
+    Możliwość rywalizacji:
+        Gracze mogą wpływać na siebie nawzajem, np. blokując dostęp do skarbów.
+
+Zastosowanie algorytmów RL
+1. Uczenie pasywne:
+
+    Gracz obserwuje rozgrywkę (np. losowe ruchy) i ocenia wartości stanów na podstawie nagród, jakie są z nimi związane.
+
+2. Uczenie aktywne:
+
+    Gracz eksploruje różne ruchy, ucząc się, które z nich maksymalizują zdobyte punkty:
+    Q(s,a)=Q(s,a)+α[r+γmax⁡a′Q(s′,a′)−Q(s,a)]
+    Q(s,a)=Q(s,a)+α[r+γa′max​Q(s′,a′)−Q(s,a)]
+
+3. Monte Carlo Tree Search (MCTS):
+
+    Gracz symuluje potencjalne ruchy i wybiera te, które maksymalizują oczekiwaną liczbę punktów.
+
+Struktura gry
+
+    Stan gry:
+        Plansza z oznaczeniem pól (skarby, pułapki, puste).
+        Pozycje obu graczy.
+
+    Akcje:
+        Lista dostępnych ruchów (góra, dół, lewo, prawo, brak ruchu).
+
+    Nagrody:
+        +10+10 za skarb.
+        −5−5 za pułapkę.
+
+    Rozgrywka:
+        Tura: Gracze podejmują decyzję, poruszają się, a plansza jest aktualizowana.
